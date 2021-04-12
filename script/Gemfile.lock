@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json (2.5.1)
+    ruby-ole (1.2.12.2)
+    spreadsheet (1.2.8)
+      ruby-ole
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  json
+  spreadsheet
+
+BUNDLED WITH
+   2.2.3

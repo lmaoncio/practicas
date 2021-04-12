@@ -1,6 +1,5 @@
 require 'spreadsheet'
 require 'json'
-require 'strftime'
 
 #PARSED DATA
 begin
