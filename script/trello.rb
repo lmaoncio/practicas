@@ -55,11 +55,15 @@ def get_members_list()
   members_list = []
   DATA[CARDS][$card_index][ID_MEMBERS].each_index do |members|
     DATA[MEMBERS].each_index do |names|
-      if DATA[MEMBERS][names][ID] == DATA[CARDS][$card_index][ID_MEMBERS][members]
-        members_list.push(DATA[MEMBER][names][USERNAME])
+      #puts DATA[MEMBERS][names][ID]
+      #puts DATA['members'][names]['id']
+      if DATA['members'][names]['id'] == DATA[CARDS][$card_index][ID_MEMBERS][members]
+        members_list.push(DATA[MEMBERS][names][USERNAME])
       end
     end
   end
+  members_list = members_list.join(",")
+
   members_list
 end
 
@@ -69,6 +73,7 @@ def get_labels_list()
   DATA[CARDS][$card_index][LABELS].each_index do |item|
     labels_list.push(DATA[CARDS][$card_index][LABELS][item][COLOR] + "-" + DATA[CARDS][$card_index][LABELS][item][NAME])
   end
+  labels_list = labels_list.join(',')
   labels_list
 end
 
@@ -78,6 +83,7 @@ def get_attachment_list()
   DATA[CARDS][$card_index][ATTACHMENTS].each_index do |item|
     attachment_list.push(DATA[CARDS][$card_index][ATTACHMENTS][item][NAME] + "-" + DATA[CARDS][$card_index][ATTACHMENTS][item][URL])
   end
+  attachment_list = attachment_list.join(',')
   attachment_list
 end
 
@@ -100,7 +106,7 @@ format = Spreadsheet::Format.new :text_wrap => true
 begin
   DATA[CARDS].each_index do |item|
     $card_index = item
-
+    
     #GETTING DATA
     title = card_title()
     archived = card_status()
@@ -108,8 +114,11 @@ begin
     labels_list = get_labels_list()
     attachment_list = get_attachment_list()
 
+    #puts DATA[CARDS][item][ID]
+    #puts DATA['cards'][item]['id']
+    
     #WRITING EXCEL
-    row = sheet.row(count).push(DATA[CARDS][item][ID], 
+    row = sheet.row(count).push(DATA['cards'][item]['id'], 
     DATA[CARDS][item][NAME],
     DATA[CARDS][item][DESCRIPTION],
     DATA[CARDS][item][SHORT_LINK],
